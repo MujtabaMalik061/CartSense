@@ -8,6 +8,7 @@ import multer from "multer";
 import mailer from "../config/mailer.js";
 import cloudinary from "../config/cloudinary.js";
 import { Readable } from "stream";
+import { log } from "console";
 
 const storage = multer.memoryStorage();
 export const uploadProfileImage = multer({ storage }).single("profileImg");
@@ -56,7 +57,8 @@ export const login = async (req, res) => {
     if (!user) return res.status(400).json({ msg: "Invalid credentials" });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ msg: "Invalid credentials" });
+    if (!isMatch)
+      return res.status(400).json({ msg: "Invalid password credentials" });
 
     const payload = { id: user._id };
     jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" }, (err, token) => {
@@ -156,11 +158,9 @@ export const newPassword = async (req, res) => {
     if (!user) return res.status(404).json({ message: "User not found" });
 
     if (!user.otpVerified)
-      return res
-        .status(400)
-        .json({
-          message: "OTP verification required before resetting password",
-        });
+      return res.status(400).json({
+        message: "OTP verification required before resetting password",
+      });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);

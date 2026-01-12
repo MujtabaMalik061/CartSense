@@ -9,7 +9,7 @@ import API from "../utils/api";
 
 const Login = ({ setAcountState }) => {
   const navigate = useNavigate();
-  const location =useLocation();
+  const location = useLocation();
   const { refresh } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
@@ -33,15 +33,16 @@ const Login = ({ setAcountState }) => {
       }
       toast.success("Login successfully.");
     } catch (err) {
-      console.error("[Login] Login error:", err);
-      toast.error("Login failed");
+      toast.error(`${err?.response?.data?.msg}`);
+      console.error("[Login] error:", err);
     } finally {
       setLoading(false);
     }
   };
 
- const Authrized =
-   location.pathname === "/cart" || location.pathname.startsWith(`/my-orders/`);
+  const Authrized =
+    location.pathname === "/cart" ||
+    location.pathname.startsWith(`/my-orders/`);
 
   return (
     <div
@@ -71,7 +72,6 @@ const Login = ({ setAcountState }) => {
               } else {
                 setAcountState(null);
               }
-
             }}
             className="modal-close-btn"
           >
