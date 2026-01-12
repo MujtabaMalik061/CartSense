@@ -316,7 +316,8 @@ const SingleProduct = () => {
                   setCartLoading,
                   setSidebarType,
                   setCartCount,
-                  selectedFiled
+                  selectedFiled,
+                  quantity,
                 );
               }}
               className="single-product-btn"

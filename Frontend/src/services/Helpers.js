@@ -29,7 +29,8 @@ export const handleAddToCart = async (
   setLoading = null,
   setSidebarType = null,
   setCartCount = 0,
-  selectedOptions = {}
+  selectedOptions = {},
+  productQuantity = 1,
 ) => {
   if (!currentUser) {
     toast.error("Please log in to add items to your cart.");
@@ -44,7 +45,7 @@ export const handleAddToCart = async (
       {
         userId: currentUser._id,
         productId: product._id,
-        quantity: 1,
+        quantity: productQuantity,
         selectedOptions,
       },
       {
@@ -67,7 +68,7 @@ export const handleAddToCart = async (
   }
 };
 
-export  const handleQuantityChange = async (
+export const handleQuantityChange = async (
   item,
   type,
   currentUser,

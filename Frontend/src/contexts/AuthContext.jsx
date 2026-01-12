@@ -8,7 +8,6 @@ export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [authAllow, setAuthAllow] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [isDetail, setIsDetail] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   const navigate = useNavigate();
@@ -20,7 +19,6 @@ export const AuthProvider = ({ children }) => {
     if (!token) {
       setCurrentUser(null);
       setAuthAllow(false);
-      setIsDetail(false);
       setLoading(false);
       return;
     }
@@ -29,12 +27,10 @@ export const AuthProvider = ({ children }) => {
       const res = await API.get("/auth/user");
       setCurrentUser(res.data.user);
       setAuthAllow(true);
-      setIsDetail(Boolean(res.data.user.name && res.data.user.email));
     } catch (err) {
       console.error("[AuthContext] Auth check failed:", err.response?.data);
       setCurrentUser(null);
       setAuthAllow(false);
-      setIsDetail(false);
     } finally {
       setLoading(false);
     }
@@ -44,7 +40,6 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("token");
     setCurrentUser(null);
     setAuthAllow(false);
-    setIsDetail(false);
     navigate("/");
     window.location.reload();
   };
@@ -86,7 +81,6 @@ export const AuthProvider = ({ children }) => {
         authAllow,
         loading,
         refresh: fetchMe,
-        isDetail,
         logout,
         isOnline,
       }}
