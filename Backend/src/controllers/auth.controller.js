@@ -8,7 +8,6 @@ import multer from "multer";
 import mailer from "../config/mailer.js";
 import cloudinary from "../config/cloudinary.js";
 import { Readable } from "stream";
-import { log } from "console";
 
 const storage = multer.memoryStorage();
 export const uploadProfileImage = multer({ storage }).single("profileImg");

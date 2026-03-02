@@ -78,8 +78,9 @@ body {
   max-height: 90vh;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 16px;
-  padding: 2rem 2.5rem;
-  width: 360px;
+  padding: 2rem;
+  width: 450px;
+  max-width: 97vw;
   color: #fff;
   box-shadow: 0 8px 32px rgb(0 0 0 / 10%);
   backdrop-filter: saturate(-0.5) blur(0px);
